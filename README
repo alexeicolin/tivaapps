@@ -1,0 +1,15 @@
+Simple app skeleton for Tiva C.
+
+Generic funcationality:
+ * main.c : initialization of console and logger and call to app entry point
+ * event_logger.c : logger event formatting
+ * uart_iface.c : write to UART serial ports
+
+Apps: app_*.c
+
+To build:
+  * edit paths on top of makefile and 'make'
+
+To write app to flash using OpenOCD:
+    * Must have openocd.cfg and ek-tm4c123gxl.cfg in curr directory
+    * $ openocd -f openocd.cfg -c program app_hwiswitask.out 0x00000000
