@@ -47,6 +47,7 @@ LINKERCMD = tm4c123gxl.ld
 MAIN_OBJS = \
 	EK_TM4C123GXL.o \
 	uart_iface.o \
+	num_format.o \
 	event_logger.o \
 	main.o \
 

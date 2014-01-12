@@ -1,4 +1,5 @@
 #include "event_logger.h"
+#include "num_format.h"
 
 #include <xdc/runtime/System.h>
 #include <xdc/runtime/Log.h>
@@ -12,7 +13,6 @@
 
 #include <string.h>
 
-
 #if (xdc_target__bitsPerChar * xdc_target__sizeof_Int) == 32
 #define SERIAL "#%010u "
 #define HI "%0.8x:"
@@ -25,6 +25,8 @@
 #error xdc.runtime.Log does not support this target. 
 #endif
 
+#define TIMESTAMP_IN_US
+
 static char outbuf[1024];
 static OutputFunc outputFunc = NULL;
 
@@ -32,9 +34,15 @@ static Void outputEvent(Log_EventRec *er)
 {
     Text_RopeId rope;
     String  fmt;
-    Bits32  hi, lo;
     Char   *bufPtr = outbuf;
     Int     size = 0;
+#ifdef TIMESTAMP_IN_US
+    UInt64 timestamp;
+    Types_FreqHz freq;
+    UInt64 freqVal;
+#else
+    Bits32  hi, lo;
+#endif
 
     /* print serial number if there is one; 0 isn't a valid serial number */
     if (er->serial) {
@@ -43,9 +51,16 @@ static Void outputEvent(Log_EventRec *er)
     }
 
     /* print timestamp if there is one; ~0 isn't a valid timestamp value */
-    hi = er->tstamp.hi;
-    lo = er->tstamp.lo;
-    if (lo != ~0 && hi != ~0) {
+    if (er->tstamp.hi != ~0 && er->tstamp.lo != ~0) {
+#ifdef TIMESTAMP_IN_US
+        Timestamp_getFreq(&freq);
+        freqVal = (((UInt64)freq.hi) << 32) | ((UInt64)freq.lo);
+        timestamp = (((UInt64)er->tstamp.hi) << 32) | ((UInt64)er->tstamp.lo);
+        timestamp /= freqVal / 1000000; /* timestamp in in us */
+
+        System_sprintf(bufPtr, "[t=%s]", NumFormat_format(timestamp, 0, 10));
+        bufPtr = outbuf + strlen(outbuf);
+#else
         System_sprintf(bufPtr, "[t=0x");
         bufPtr = outbuf + strlen(outbuf);
         if (hi) {
@@ -54,6 +69,7 @@ static Void outputEvent(Log_EventRec *er)
         }
         System_sprintf(bufPtr, LO, lo);
         bufPtr = outbuf + strlen(outbuf);
+#endif
     }
 
     /* print module name */
