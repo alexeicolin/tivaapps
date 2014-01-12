@@ -44,9 +44,16 @@ LINKERCMD = tm4c123gxl.ld
 %.out : %.o $(CONFIG)/linker.cmd
 	$(CC) $(CFLAGS) -o $@ $(filter %.o %.a, $^) $(LFLAGS)
 
-MAIN_OBJS = EK_TM4C123GXL.o uart_iface.o event_logger.o main.o 
+MAIN_OBJS = \
+	EK_TM4C123GXL.o \
+	uart_iface.o \
+	event_logger.o \
+	main.o \
 
-all: app_hwiswitask.out
+APPS = \
+	app_hwiswitask.out \
+
+all: $(APPS)
 
 # Applications
 app_hwiswitask.out : app_hwiswitask.o $(MAIN_OBJS)
