@@ -51,12 +51,14 @@ MAIN_OBJS = \
 	main.o \
 
 APPS = \
+	app_hello.out \
 	app_hwiswitask.out \
 
 all: $(APPS)
 
 # Applications
 app_hwiswitask.out : app_hwiswitask.o $(MAIN_OBJS)
+app_hello.out : app_hello.o $(MAIN_OBJS)
 
 clean:
 	-rm -rf *.o *.out *.d
