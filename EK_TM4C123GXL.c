@@ -75,8 +75,8 @@
 
 #include "EK_TM4C123GXL.h"
 
-#pragma DATA_ALIGN(EK_TM4C123GXL_DMAControlTable, 1024)
-static tDMAControlTable EK_TM4C123GXL_DMAControlTable[32];
+static tDMAControlTable EK_TM4C123GXL_DMAControlTable[32]
+    __attribute((aligned(1024)));
 static int DMA_count = -1;
 
 /*
