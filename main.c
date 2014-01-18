@@ -19,6 +19,13 @@
 /* TI-RTOS Header files */
 #include <ti/drivers/GPIO.h>
 
+/* From gnu.targets.arm.rtsv7M/syscalls.c v3_25_03_72 (see note near syscall
+ * definitions on the bottom here in main.c) */
+#include <errno.h>
+#undef errno
+extern int errno;
+
+
 /* Example/Board Header files */
 #include "Board.h"
 
@@ -76,4 +83,26 @@ Int main(Int argc, Char* argv[])
 
     BIOS_start();
     return 0;
+}
+
+/* In XDC Tools v3_25_03_72, these were in
+ * gnu.targets.arm.rtsv7M/syscalls.c, as expected, but in v3_25_05_94
+ * they are no longer there. Adding them here for now.
+ */
+
+/*
+ *  ======== _kill ========
+ */
+int _kill(int pid, int sig) 
+{
+    errno = EINVAL;
+    return (-1);
+}
+
+/*
+ *  ======== _getpid ========
+ */
+int _getpid(void) 
+{
+    return (1);
 }
