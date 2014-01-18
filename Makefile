@@ -4,10 +4,10 @@ XDCPATH = $(SYSBIOS_ROOT)/packages;$(UIA_ROOT)/packages;$(TIRTOS_ROOT)/packages
 CONFIGURO_OPTS = -v
 
 CONFIGURO = $(XDCTOOLS_ROOT)/xs --xdcpath="$(XDCPATH)" xdc.tools.configuro $(CONFIGURO_OPTS)
-TARGET = gnu.targets.arm.M4
-PLATFORM = ti.platforms.stellaris:TM4C123GH6PM
+TARGET = gnu.targets.arm.M4F
+PLATFORM = ti.platforms.tiva:TM4C123GH6PM:true
 PART=TM4C123GH6PM
-ROV_XS_SUFFIX = pm4g
+ROV_XS_SUFFIX = pm4fg
 
 CONFIG = bld
 
@@ -19,11 +19,8 @@ CFLAGS = -Wall -mcpu=cortex-m4 -mthumb \
 
 LD = $(M3TOOLS)/bin/arm-none-eabi-gcc
 LFLAGS = -nostartfiles -static -Wl,--gc-sections \
-		 -Wl,-T,$(LINKERCMD) -Wl,-T,$(CONFIG)/linker.cmd \
+		 -Wl,-T,$(CONFIG)/linker.cmd \
 		 -L$(TIVAWARE_ROOT)/driverlib/gcc/ -O0 -g -ldriver
-
-#LINKERCMD = lm3s9b90.ld
-LINKERCMD = tm4c123gxl.ld
 
 .PRECIOUS: %/compiler.opt %/linker.cmd
 
