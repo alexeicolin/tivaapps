@@ -4,6 +4,7 @@
 #include <xdc/runtime/System.h>
 
 /* TI-RTOS Header files */
+#include <stdint.h> /* assumed by ti.drivers headers (?) */
 #include <ti/drivers/UART.h>
 
 struct _UART_Iface_Port {

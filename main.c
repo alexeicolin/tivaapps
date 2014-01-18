@@ -17,6 +17,7 @@
 #include <ti/sysbios/family/arm/m3/Hwi.h>
 
 /* TI-RTOS Header files */
+#include <stdint.h> /* assumed by ti.drivers headers (?) */
 #include <ti/drivers/GPIO.h>
 
 /* From gnu.targets.arm.rtsv7M/syscalls.c v3_25_03_72 (see note near syscall
