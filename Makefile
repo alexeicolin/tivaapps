@@ -1,10 +1,5 @@
-#M3TOOLS ?= /home/jdoe/cs/arm-2011q3
-#SYSBIOS ?= /home/jdoe/bios_6_33_00_19
-#XDCTOOLS ?= /home/jdoe/xdctools_3_23_00_32
-
 M3TOOLS = /usr
-SYSBIOS_ROOT = /home/acolin/rtml/src/ti/src/sysbios
-XDCPATH = /home/acolin/rtml/src/ti/repo;$(SYSBIOS_ROOT)/packages;$(UIA_ROOT)/packages;$(TIRTOS_ROOT)/packages
+XDCPATH = $(SYSBIOS_ROOT)/packages;$(UIA_ROOT)/packages;$(TIRTOS_ROOT)/packages
 #CONFIGURO_OPTS = -v --generationOnly
 CONFIGURO_OPTS = -v
 
