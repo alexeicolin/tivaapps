@@ -1,18 +1,23 @@
 M3TOOLS = /usr
-XDCPATH = \
-	"$(BIOS_INSTALLATION_DIR)/packages;"\
-	"$(UIA_INSTALLATION_DIR)/packages;"\
-	"$(TIRTOS_INSTALLATION_DIR)/packages;"\
+XDCPATH_LIST = \
+	$(BIOS_INSTALLATION_DIR)/packages \
+	$(UIA_INSTALLATION_DIR)/packages \
+	$(TIRTOS_INSTALLATION_DIR)/packages \
 
-#CONFIGURO_OPTS = -v --generationOnly
-CONFIGURO_OPTS = -v
-
-CONFIGURO = $(XDCTOOLS_INSTALLATION_DIR)/xs --xdcpath="$(XDCPATH)" \
-			xdc.tools.configuro $(CONFIGURO_OPTS)
 TARGET = gnu.targets.arm.M4F
 PLATFORM = ti.platforms.tiva:TM4C123GH6PM:true
 PART=TM4C123GH6PM
 ROV_XS_SUFFIX = pm4fg
+
+#CONFIGURO_OPTS = -v --generationOnly
+CONFIGURO_OPTS = -v
+
+empty:=
+space:= $(empty) $(empty)
+XDCPATH = $(subst $(space),;,$(XDCPATH_LIST))
+
+CONFIGURO = $(XDCTOOLS_INSTALLATION_DIR)/xs --xdcpath="$(XDCPATH)" \
+			xdc.tools.configuro $(CONFIGURO_OPTS)
 
 CONFIG = bld
 
