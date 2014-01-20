@@ -14,11 +14,17 @@ Example apps:
     - `hello`: console output to UART
     - `hwiswitask`: various threading primitives (ex. from SYSBIOS user manual) 
 
-Most content here was gathered from various existing resources and stitched
-together to get an end-to-end working environment. The initiative was started
-when there was less support for the Tiva C Launchpad than there is now and
-contained more resources (e.g. linker scripts), which are no longer needed and
-hence have been removed.
+Skeleton:
+ * main.c : initialization of console and logger and call to app entry point
+ * event\_logger.c : logger event formatting
+ * uart\_iface.c : write to UART serial ports
+ * EK\_TM4C123GXL.c : board-specific code
+
+Most content for this how-to was gathered from various existing resources and
+stitched together to get an end-to-end working environment. The initiative was
+started when there was less support for the Tiva C Launchpad than there is now
+and contained more resources (e.g. linker scripts), which are no longer needed
+and hence have been removed.
 
 Disclaimer: personal project, not affiliated with TI.
 
