@@ -46,6 +46,7 @@ MAIN_OBJS = \
 	uart_iface.o \
 	num_format.o \
 	event_logger.o \
+	syscalls.o \
 	main.o \
 
 APPS = \
