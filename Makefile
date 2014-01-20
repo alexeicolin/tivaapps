@@ -1,9 +1,14 @@
 M3TOOLS = /usr
-XDCPATH = $(SYSBIOS_ROOT)/packages;$(UIA_ROOT)/packages;$(TIRTOS_ROOT)/packages
+XDCPATH = \
+	"$(BIOS_INSTALLATION_DIR)/packages;"\
+	"$(UIA_INSTALLATION_DIR)/packages;"\
+	"$(TIRTOS_INSTALLATION_DIR)/packages;"\
+
 #CONFIGURO_OPTS = -v --generationOnly
 CONFIGURO_OPTS = -v
 
-CONFIGURO = $(XDCTOOLS_ROOT)/xs --xdcpath="$(XDCPATH)" xdc.tools.configuro $(CONFIGURO_OPTS)
+CONFIGURO = $(XDCTOOLS_INSTALLATION_DIR)/xs --xdcpath="$(XDCPATH)" \
+			xdc.tools.configuro $(CONFIGURO_OPTS)
 TARGET = gnu.targets.arm.M4F
 PLATFORM = ti.platforms.tiva:TM4C123GH6PM:true
 PART=TM4C123GH6PM
@@ -15,12 +20,12 @@ CC = $(M3TOOLS)/bin/arm-none-eabi-gcc
 CFLAGS = -Wall -mcpu=cortex-m4 -mthumb \
 		 -mabi=aapcs -mapcs-frame -std=c99 -MD \
 		 -DPART_$(PART) -DTIVAWARE \
-		 @$(CONFIG)/compiler.opt -O0 -ggdb -I$(TIVAWARE_ROOT)
+		 @$(CONFIG)/compiler.opt -O0 -ggdb -I$(TIVAWARE_INSTALLATION_DIR)
 
 LD = $(M3TOOLS)/bin/arm-none-eabi-gcc
 LFLAGS = -nostartfiles -static -Wl,--gc-sections \
 		 -Wl,-T,$(CONFIG)/linker.cmd \
-		 -L$(TIVAWARE_ROOT)/driverlib/gcc/ -O0 -g -ldriver
+		 -L$(TIVAWARE_INSTALLATION_DIR)/driverlib/gcc/ -O0 -g -ldriver
 
 .PRECIOUS: %/compiler.opt %/linker.cmd
 
