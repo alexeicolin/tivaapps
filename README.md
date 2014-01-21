@@ -118,8 +118,8 @@ Source Dependencies
     * Instrumentation functionality, of which the Logger framework is used here
     * Rebuilt by tirtos.mak (see ti.drivers item above)
 
-Build and Flash
-===============
+Build, Flash, and Run
+=====================
 
 Setup pointers to the above dependencies
 
@@ -135,6 +135,24 @@ By default all example applications are built:
     $ make
     $ openocd -f openocd.cfg 'program app_hello.out 0x00000000'
 
+The Tiva C board should create a USB-to-Serial device linked to the UART
+Port 0. To see the console output:
+
+    $ screen /dev/ttyACM0 115200
+
+and push the reset button on the board.
+
+For reference, the driver (kernel module) for the USB-to-Serial device is
+`cdc\_acm`. Output of `lsusb`:
+
+    Bus 004 Device 010: ID 1cbe:00fd Luminary Micro Inc.
+
+and `dmesg`:
+
+    [487894.788077] usb 4-1: new full-speed USB device number 10 using uhci_hcd
+    [487894.949990] cdc_acm 4-1:1.0: This device cannot do calls on its own. It is not a modem.
+    [487894.950031] cdc_acm 4-1:1.0: ttyACM0: USB ACM device
+
 Debug
 =====
 
@@ -144,6 +162,11 @@ Debug
     gdb> monitor reset halt
     gdb> break app
     gdb> c
+
+Across re-flashes, the gdb session can be left running, but it should be
+`detach`ed.  Once detached, openocd demon can be shutdown, binary flashed,
+demon restarted, and gdb `target` command re-run. Without detaching, the
+gdb session seems to break in odd ways.
 
 Add another application
 ========================
