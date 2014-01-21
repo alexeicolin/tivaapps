@@ -108,6 +108,7 @@ Source Dependencies
         - change the UART clock source to PIOSC to inorder to make it robust
           against clock changes due to transitioning into deep sleep (sleeping
           is not enabled by default).
+
        If you use that source, then see the README for build instructions,
        otherwise see below.
     * To rebuild:
