@@ -13,8 +13,10 @@ Example apps:
 
     - `hello`: console output to UART
     - `hwiswitask`: various threading primitives (ex. from SYSBIOS user manual) 
+    - `exception`: cause a divide-by-zero and dump exception context to console
 
 Skeleton:
+
  * main.c : initialization of console and logger and call to app entry point
  * event\_logger.c : logger event formatting
  * uart\_iface.c : write to UART serial ports
@@ -127,8 +129,7 @@ Setup pointers to the above dependencies
     $ export TIRTOS_INSTALLATION_DIR=/path/to/tirtos_1_21_00_09/
     $ export UIA_INSTALLATION_DIR=/path/to/tirtos_1_21_00_09/uia_1_04_00_06
 
-By default all example applications (`app_hello.out` and `app_hwiswitask.out`)
-are built.
+By default all example applications are built:
 
     $ cd /path/to/tivaapps
     $ make

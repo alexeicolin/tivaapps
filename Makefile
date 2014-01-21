@@ -57,12 +57,14 @@ MAIN_OBJS = \
 APPS = \
 	app_hello.out \
 	app_hwiswitask.out \
+	app_exception.out \
 
 all: $(APPS)
 
 # Applications
 app_hwiswitask.out : app_hwiswitask.o $(MAIN_OBJS)
 app_hello.out : app_hello.o $(MAIN_OBJS)
+app_exception.out : app_exception.o $(MAIN_OBJS)
 
 clean:
 	-rm -rf *.o *.out *.d
