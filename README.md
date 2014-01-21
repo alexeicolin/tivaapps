@@ -101,14 +101,15 @@ Source Dependencies
   [TI RTOS](http://www.ti.com/tool/ti-rtos) v1.21.00.09
     * Wraps low-level microcontroller features to be used with XDC
       packages.
-<!-- TODO
-    * In [tirtos repo]() repo there are patches to the UART code that
+    * In [tirtos repo](https://github.com/alexeicolin/tirtos) repo there are
+      patches to the UART code that
         - remove unneeded interrupts due to the async API, which is unused by
           our app
         - change the UART clock source to PIOSC to inorder to make it robust
           against clock changes due to transitioning into deep sleep (sleeping
           is not enabled by default).
--->
+       If you use that source, then see the README for build instructions,
+       otherwise see below.
     * To rebuild:
 
         ```bash
