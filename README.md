@@ -119,13 +119,22 @@ Source Dependencies
             TIRTOS_INSTALLATION_DIR=$PWD \
             XDCTOOLS_INSTALLATION_DIR=/path/to/xdctools_3_25_05_94 \
             BIOS_INSTALLATION_DIR=/path/to/sysbios \
-            all
+            drivers
         ```
 
 - ti.uia.\* packages v1.04.00.06: shipped with
   [TI RTOS](http://www.ti.com/tool/ti-rtos) v1.21.00.09)
     * Instrumentation functionality, of which the Logger framework is used here
-    * Rebuilt by tirtos.mak (see ti.drivers item above)
+    * To rebuild:
+
+        ```bash
+        $ cd /path/to/tirtos_1_21_00_09
+        $ make -f tirtos.mak CCS_BUILD=false GCC_INSTALLATION_DIR=/usr \
+            TIRTOS_INSTALLATION_DIR=$PWD \
+            XDCTOOLS_INSTALLATION_DIR=/path/to/xdctools_3_25_05_94 \
+            BIOS_INSTALLATION_DIR=/path/to/sysbios \
+            uia
+        ```
 
 Build, Flash, and Run
 =====================
