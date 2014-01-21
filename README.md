@@ -10,17 +10,15 @@ Of particular interest is the system output re-direction to UART and
 workarounds for a few issues in SYSBIOS code.
 
 Example apps:
-
-    - `hello`: console output to UART
-    - `hwiswitask`: various threading primitives (ex. from SYSBIOS user manual) 
-    - `exception`: cause a divide-by-zero and dump exception context to console
+- `hello`: console output to UART
+- `hwiswitask`: various threading primitives (ex. from SYSBIOS user manual) 
+- `exception`: cause a divide-by-zero and dump exception context to console
 
 Skeleton:
-
- * main.c : initialization of console and logger and call to app entry point
- * event\_logger.c : logger event formatting
- * uart\_iface.c : write to UART serial ports
- * EK\_TM4C123GXL.c : board-specific code
+* `main.c` : initialization of console and logger and call to app entry point
+* `event_logger.c` : logger event formatting
+* `uart_iface.c` : write to UART serial ports
+* `EK_TM4C123GXL.c` : board-specific code
 
 Most content for this how-to was gathered from various existing resources and
 stitched together to get an end-to-end working environment. The initiative was
@@ -72,11 +70,14 @@ Source Dependencies
       which looks superceded by the above
     * To rebuild:
 
+    ```bash
     $ cd tirtos_1_21_00_09/products/TivaWare_C_Series_2.0.1.11577a/
     $ make clean # needed to clean deps files with previous build
     $ make
+    ```
 
-- ti.sysbios package v6.37.00.20 (patched): [sysbios repo]()
+- ti.sysbios package v6.37.00.20 (patched):
+  [sysbios repo](https://github.com/alexeicolin/sysbios)
     * Real-time operating system kernel.
     * Note: SYSBIOS suffers from
       [this](http://e2e.ti.com/support/microcontrollers/tiva_arm/f/908/p/313785/1097401.aspx#1097401)
@@ -90,28 +91,34 @@ Source Dependencies
       hand-written linker script (see earlier commits in this repo).
     * To build:
 
-        $ cd /path/to/sysbios
-        $ make -f sysbios.mak XDC_INSTALL_DIR=/path/to/xdctools_3_25_05_94 \
-            XDCARGS='gnu.targets.arm.M4F=/usr'
+    ```bash
+    $ cd /path/to/sysbios
+    $ make -f sysbios.mak XDC_INSTALL_DIR=/path/to/xdctools_3_25_05_94 \
+        XDCARGS='gnu.targets.arm.M4F=/usr'
+    ```
 
 - ti.drivers package: part of
   [TI RTOS](http://www.ti.com/tool/ti-rtos) v1.21.00.09
     * Wraps low-level microcontroller features to be used with XDC
       packages.
+<!-- TODO
     * In [tirtos repo]() repo there are patches to the UART code that
         - remove unneeded interrupts due to the async API, which is unused by
           our app
         - change the UART clock source to PIOSC to inorder to make it robust
           against clock changes due to transitioning into deep sleep (sleeping
           is not enabled by default).
+-->
     * To rebuild:
 
+        ```bash
         $ cd /path/to/tirtos_1_21_00_09
         $ make -f tirtos.mak CCS_BUILD=false GCC_INSTALLATION_DIR=/usr \
             TIRTOS_INSTALLATION_DIR=$PWD \
             XDCTOOLS_INSTALLATION_DIR=/path/to/xdctools_3_25_05_94 \
             BIOS_INSTALLATION_DIR=/path/to/sysbios \
             all
+        ```
 
 - ti.uia.\* packages v1.04.00.06: shipped with
   [TI RTOS](http://www.ti.com/tool/ti-rtos) v1.21.00.09)
@@ -129,7 +136,7 @@ Setup pointers to the above dependencies
     $ export TIRTOS_INSTALLATION_DIR=/path/to/tirtos_1_21_00_09/
     $ export UIA_INSTALLATION_DIR=/path/to/tirtos_1_21_00_09/uia_1_04_00_06
 
-By default all example applications are built:
+The default target builds all example applications:
 
     $ cd /path/to/tivaapps
     $ make
@@ -143,7 +150,7 @@ Port 0. To see the console output:
 and push the reset button on the board.
 
 For reference, the driver (kernel module) for the USB-to-Serial device is
-`cdc\_acm`. Output of `lsusb`:
+`cdc_acm`. Output of `lsusb`:
 
     Bus 004 Device 010: ID 1cbe:00fd Luminary Micro Inc.
 
@@ -171,7 +178,7 @@ gdb session seems to break in odd ways.
 Add another application
 ========================
 
-Create an app\_name.c with `app` as the main function, analogous to
-`app\_hello.c`. In `Makefile` add the file to `APPS` and add a
-corresponding target below `# Applications`.
+Create an `app_name.c` with `app` as the main function, analogous to
+[`app_hello.c`](app_hello.c). In [`Makefile`](Makefile) add the file to `APPS`
+variable and add a corresponding target below `# Applications`.
 
