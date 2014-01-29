@@ -93,7 +93,7 @@ Source Dependencies
 
     ```bash
     $ cd /path/to/sysbios
-    $ make -f sysbios.mak XDC_INSTALL_DIR=/path/to/xdctools_3_25_05_94 \
+    $ make -f bios.mak XDC_INSTALL_DIR=/path/to/xdctools_3_25_05_94 \
         XDCARGS='gnu.targets.arm.M4F=/usr'
     ```
 
