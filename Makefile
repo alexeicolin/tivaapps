@@ -1,3 +1,16 @@
+ifndef BIOS_INSTALLATION_DIR
+$(error Environment variable not defined: BIOS_INSTALLATION_DIR)
+endif
+ifndef UIA_INSTALLATION_DIR
+$(error Environment variable not defined: UIA_INSTALLATION_DIR)
+endif
+ifndef TIRTOS_INSTALLATION_DIR
+$(error Environment variable not defined: TIRTOS_INSTALLATION_DIR)
+endif
+ifndef TIVAWARE_INSTALLATION_DIR
+$(error Environment variable not defined: TIVAWARE_INSTALLATION_DIR)
+endif
+
 M3TOOLS = /usr
 XDCPATH_LIST = \
 	$(BIOS_INSTALLATION_DIR)/packages \
