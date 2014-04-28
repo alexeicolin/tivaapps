@@ -54,6 +54,16 @@ extern "C" {
 #define EK_TM4C123GXL_LED_OFF (0)
 #define EK_TM4C123GXL_LED_ON  (~0)
 
+
+/* Define this before including if button handlers are defined */
+#ifdef BUTTON_HANDLERS_INCLUDED
+
+/* Callback functions for the GPIO interrupt example. */
+Void gpioButton1Fxn(Void);
+Void gpioButton2Fxn(Void);
+
+#endif
+
 /* GPIO_Callbacks structure for GPIO interrupts */
 extern const GPIO_Callbacks EK_TM4C123GXL_gpioPortFCallbacks;
 

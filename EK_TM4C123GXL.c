@@ -114,11 +114,8 @@ Void EK_TM4C123GXL_initDMA(Void)
 #if TI_DRIVERS_GPIO_INCLUDED
 #include <ti/drivers/GPIO.h>
 
-/* Callback functions for the GPIO interrupt example. */
-#if 0
-Void gpioButtonFxn(Void);
-Void gpioButtonFxn2(Void);
-#endif
+/* Memory for the GPIO module to construct a Hwi */
+Hwi_Struct callbackHwi;
 
 /* GPIO configuration structure */
 const GPIO_HWAttrs gpioHWAttrs[EK_TM4C123GXL_GPIOCOUNT] = {
@@ -129,11 +126,19 @@ const GPIO_HWAttrs gpioHWAttrs[EK_TM4C123GXL_GPIOCOUNT] = {
     {GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_INPUT},  /* EK_TM4C123GXL_GPIO_SW2 */
 };
 
-#if 0
 /* GPIO callback structure to set callbacks for GPIO interrupts */
+#ifdef BUTTON_HANDLERS_INCLUDED
 const GPIO_Callbacks EK_TM4C123GXL_gpioPortFCallbacks = {
-    GPIO_PORTF_BASE, INT_GPIOF,
-    {gpioButtonFxn2, NULL, NULL, NULL, gpioButtonFxn, NULL, NULL, NULL}
+    GPIO_PORTF_BASE, INT_GPIOF, &callbackHwi,
+    {
+     gpioButton2Fxn,
+     NULL,
+     NULL,
+     NULL,
+     gpioButton1Fxn,
+     NULL,
+     NULL,
+     NULL}
 };
 #endif
 
@@ -176,6 +181,15 @@ Void EK_TM4C123GXL_initGPIO(Void)
     GPIO_write(EK_TM4C123GXL_LED_RED, EK_TM4C123GXL_LED_OFF);
     GPIO_write(EK_TM4C123GXL_LED_GREEN, EK_TM4C123GXL_LED_OFF);
     GPIO_write(EK_TM4C123GXL_LED_BLUE, EK_TM4C123GXL_LED_OFF);
+
+#ifdef BUTTON_HANDLERS_INCLUDED
+    // Setup interrupts
+    GPIO_setupCallbacks(&EK_TM4C123GXL_gpioPortFCallbacks);
+    
+    // Enable interrupts
+    GPIO_enableInt(EK_TM4C123GXL_GPIO_SW1, GPIO_INT_RISING);
+    GPIO_enableInt(EK_TM4C123GXL_GPIO_SW2, GPIO_INT_RISING);
+#endif
 }
 #endif /* TI_DRIVERS_GPIO_INCLUDED */
 
