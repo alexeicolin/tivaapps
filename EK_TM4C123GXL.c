@@ -111,19 +111,6 @@ Void EK_TM4C123GXL_initDMA(Void)
     }
 }
 
-/*
- *  ======== EK_TM4C123GXL_initGeneral ========
- */
-Void EK_TM4C123GXL_initGeneral(Void)
-{
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-}
-
 #if TI_DRIVERS_GPIO_INCLUDED
 #include <ti/drivers/GPIO.h>
 
@@ -164,6 +151,8 @@ const GPIO_Config GPIO_config[] = {
  */
 Void EK_TM4C123GXL_initGPIO(Void)
 {
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
     /* Setup the LED GPIO pins used */
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1); /* EK_TM4C123GXL_LED_RED */
     GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2); /* EK_TM4C123GXL_LED_GREEN */
@@ -305,6 +294,8 @@ const UART_Config UART_config[] = {
  */
 Void EK_TM4C123GXL_initUART()
 {
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+
     /* Enable and configure the peripherals used by the uart. */
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
     GPIOPinConfigure(GPIO_PA0_U0RX);
@@ -409,6 +400,8 @@ const WiFi_Config WiFi_config[] = {
  */
 Void EK_TM4C123GXL_initWiFi(Void)
 {
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+
     /* Configure IRQ pin */
     GPIOPinTypeGPIOInput(GPIO_PORTB_BASE, GPIO_PIN_2);
 
