@@ -11,6 +11,7 @@ APPS = \
 	app_hwiswitask.out \
 	app_exception.out \
 	app_button.out \
+	app_pwm.out \
 
 HEADERS = \
 	Board.h \
