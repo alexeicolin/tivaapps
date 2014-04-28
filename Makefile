@@ -13,6 +13,7 @@ APPS = \
 	app_button.out \
 	app_pwm.out \
 	app_timer.out \
+	app_clock.out \
 
 HEADERS = \
 	Board.h \
