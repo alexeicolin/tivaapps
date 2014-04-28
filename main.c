@@ -53,6 +53,13 @@ Void onException(ti_sysbios_family_arm_m3_Hwi_ExcContext *excp)
     LoggerIdle_flush();
 }
 
+Void shortDelay()
+{
+    Int i;
+    while (i < 10000)
+        i++;
+}
+
 Int main(Int argc, Char* argv[])
 {
     /* Core configuration parameters (e.g. system clock) are specified in
@@ -72,6 +79,8 @@ Int main(Int argc, Char* argv[])
 #endif
 
     GPIO_write(Board_LED, Board_LED_ON);
+    shortDelay();
+    GPIO_write(Board_LED, Board_LED_OFF);
 
     System_printf("Running application...\n");
     System_flush();
