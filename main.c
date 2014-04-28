@@ -37,6 +37,9 @@ Void outputToUART(Char *buf, Int size) {
     UART_Iface_write(uartPort, buf, size);
 }
 
+Void outputToNull(Char *buf, Int size) {
+}
+
 /*
  *  ======== myExceptionHook ========
  *  User exception hook function.  This function will be run on the ISR
@@ -57,12 +60,16 @@ Int main(Int argc, Char* argv[])
 
     Board_initGeneral();
     Board_initGPIO();
+#ifndef NO_UART
     Board_initUART();
 
     if (!(uartPort = UART_Iface_openHandle(Board_UART, FALSE)))
         System_abort("Failed to open UART\n");
 
     EventLogger_registerOutputFunc(&outputToUART);
+#else
+    EventLogger_registerOutputFunc(&outputToNull);
+#endif
 
     GPIO_write(Board_LED, Board_LED_ON);
 
