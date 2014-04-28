@@ -10,6 +10,7 @@ APPS = \
 	app_hello.out \
 	app_hwiswitask.out \
 	app_exception.out \
+	app_button.out \
 
 HEADERS = \
 	Board.h \
@@ -18,6 +19,7 @@ HEADERS = \
 all: app_hello.out
 
 # Applications with target-specific variables and extra deps
+app_button.out : CFLAGS += -DBUTTON_HANDLERS_INCLUDED
 
 ifndef BIOS_INSTALLATION_DIR
 $(error Environment variable not defined: BIOS_INSTALLATION_DIR)
