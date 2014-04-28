@@ -56,7 +56,16 @@ static Void outputEvent(Log_EventRec *er)
         Timestamp_getFreq(&freq);
         freqVal = (((UInt64)freq.hi) << 32) | ((UInt64)freq.lo);
         timestamp = (((UInt64)er->tstamp.hi) << 32) | ((UInt64)er->tstamp.lo);
-        timestamp /= freqVal / 1000000; /* timestamp in in us */
+        /* timestamp in us = timestamp in counts / freqVal * 10^6 */
+        /* To perfrom that calculation in integer math, we have some cases */
+#define MICRO_MULTIPLIER 1000000
+        if (freqVal > MICRO_MULTIPLIER) {
+            timestamp /= freqVal / MICRO_MULTIPLIER;
+        }
+        else {
+            timestamp *= MICRO_MULTIPLIER;
+            timestamp /= freqVal;
+        }
 
         System_sprintf(bufPtr, "[t=%s]", NumFormat_format(timestamp, 0, 10));
         bufPtr = outbuf + strlen(outbuf);
