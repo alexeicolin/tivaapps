@@ -1,3 +1,24 @@
+MAIN_OBJS = \
+	EK_TM4C123GXL.o \
+	uart_iface.o \
+	num_format.o \
+	event_logger.o \
+	syscalls.o \
+	main.o \
+
+APPS = \
+	app_hello.out \
+	app_hwiswitask.out \
+	app_exception.out \
+
+HEADERS = \
+	Board.h \
+
+# Can't make all apps since using target-specific variables
+all: app_hello.out
+
+# Applications with target-specific variables and extra deps
+
 ifndef BIOS_INSTALLATION_DIR
 $(error Environment variable not defined: BIOS_INSTALLATION_DIR)
 endif
@@ -56,28 +77,8 @@ LFLAGS = -nostartfiles -static -Wl,--gc-sections \
 %.o : %.c $(CONFIG)/compiler.opt
 	$(CC) $(CFLAGS) -c $<
 
-%.out : %.o $(CONFIG)/linker.cmd
+%.out : %.o $(CONFIG)/linker.cmd $(MAIN_OBJS) $(HEADERS)
 	$(CC) $(CFLAGS) -o $@ $(filter %.o %.a, $^) $(LFLAGS)
-
-MAIN_OBJS = \
-	EK_TM4C123GXL.o \
-	uart_iface.o \
-	num_format.o \
-	event_logger.o \
-	syscalls.o \
-	main.o \
-
-APPS = \
-	app_hello.out \
-	app_hwiswitask.out \
-	app_exception.out \
-
-all: $(APPS)
-
-# Applications
-app_hwiswitask.out : app_hwiswitask.o $(MAIN_OBJS)
-app_hello.out : app_hello.o $(MAIN_OBJS)
-app_exception.out : app_exception.o $(MAIN_OBJS)
 
 clean:
 	-rm -rf *.o *.out *.d
