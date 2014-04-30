@@ -33,16 +33,15 @@ Void gpioButton1Fxn()
 
 Void gpioButton2Fxn()
 {
-    /* Reset */
+    /* Safety: debugger has trouble connecting when program is (often) in deep
+     * sleep state that's clocked by PI or LFI. This should open up a chance
+     * for the debugger.
+     */
 
-#ifdef PRINT_LOGS
-    Log_print0(Diags_INFO, "INT Button 2");
-#endif
-    GPIO_write(EK_TM4C123GXL_LED_RED, EK_TM4C123GXL_LED_OFF);
-    GPIO_clearInt(EK_TM4C123GXL_GPIO_SW2);
+    while (1);
 }
 
 Int app(Int argc, Char* argv[]) {
-    System_printf("Press btn1 to fire an interrupt and btn 2 to reset...\n");
+    System_printf("Press btn1 to fire an interrupt and btn 2 to wakeup...\n");
     return 0;
 }
