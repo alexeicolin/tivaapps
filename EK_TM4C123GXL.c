@@ -127,15 +127,23 @@ const GPIO_HWAttrs gpioHWAttrs[EK_TM4C123GXL_GPIOCOUNT] = {
 };
 
 /* GPIO callback structure to set callbacks for GPIO interrupts */
-#ifdef BUTTON_HANDLERS_INCLUDED
+#if (BUTTON_HANDLER_MASK != 0x0)
 const GPIO_Callbacks EK_TM4C123GXL_gpioPortFCallbacks = {
     GPIO_PORTF_BASE, INT_GPIOF, &callbackHwi,
     {
+#if (BUTTON_HANDLER_MASK & 0x2)
      gpioButton2Fxn,
+#else
+     NULL,
+#endif
      NULL,
      NULL,
      NULL,
+#if (BUTTON_HANDLER_MASK & 0x1)
      gpioButton1Fxn,
+#else
+     NULL,
+#endif
      NULL,
      NULL,
      NULL}
@@ -182,7 +190,7 @@ Void EK_TM4C123GXL_initGPIO(Void)
     GPIO_write(EK_TM4C123GXL_LED_GREEN, EK_TM4C123GXL_LED_OFF);
     GPIO_write(EK_TM4C123GXL_LED_BLUE, EK_TM4C123GXL_LED_OFF);
 
-#ifdef BUTTON_HANDLERS_INCLUDED
+#if (BUTTON_HANDLER_MASK != 0x0)
     // Setup interrupts
     GPIO_setupCallbacks(&EK_TM4C123GXL_gpioPortFCallbacks);
     

@@ -31,16 +31,6 @@ Void gpioButton1Fxn()
     GPIO_clearInt(EK_TM4C123GXL_GPIO_SW1);
 }
 
-Void gpioButton2Fxn()
-{
-    /* Safety: debugger has trouble connecting when program is (often) in deep
-     * sleep state that's clocked by PI or LFI. This should open up a chance
-     * for the debugger.
-     */
-
-    while (1);
-}
-
 Int app(Int argc, Char* argv[]) {
     System_printf("Press btn1 to fire an interrupt and btn 2 to wakeup...\n");
     return 0;

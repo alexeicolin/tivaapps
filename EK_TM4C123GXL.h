@@ -56,7 +56,7 @@ extern "C" {
 
 
 /* Define this before including if button handlers are defined */
-#ifdef BUTTON_HANDLERS_INCLUDED
+#if (BUTTON_HANDLER_MASK != 0x0)
 
 /* Callback functions for the GPIO interrupt example. */
 Void gpioButton1Fxn(Void);

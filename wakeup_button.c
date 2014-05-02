@@ -3,10 +3,6 @@
 
 #include <xdc/cfg/global.h>
 
-Void gpioButton1Fxn()
-{
-}
-
 Void gpioButton2Fxn()
 {
     /* Safety: debugger has trouble connecting when program is (often) in deep

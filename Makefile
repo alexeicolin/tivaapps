@@ -22,7 +22,10 @@ HEADERS = \
 all: app_hello.out
 
 # Applications with target-specific variables and extra deps
-app_button.out : CFLAGS += -DBUTTON_HANDLERS_INCLUDED
+app_button.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x3
+app_button.out : wakeup_button.o
+app_hello.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x2
+app_hello.out : wakeup_button.o
 
 ifndef BIOS_INSTALLATION_DIR
 $(error Environment variable not defined: BIOS_INSTALLATION_DIR)
