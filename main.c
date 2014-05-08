@@ -57,7 +57,8 @@ Void onException(ti_sysbios_family_arm_m3_Hwi_ExcContext *excp)
 Int main(Int argc, Char* argv[])
 {
     /* Core configuration parameters (e.g. system clock) are specified in
-     * xdctools:ti.platforms.stellaris.Platform */
+     * xdctools:ti.platforms.{stellaris,tiva}.Platform and maybe also see
+     * xdctools:ti.catalog.arm.cortexm4.tiva.ce.Boot */
 
     Board_initGeneral();
     Board_initGPIO();
