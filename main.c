@@ -60,7 +60,6 @@ Int main(Int argc, Char* argv[])
      * xdctools:ti.platforms.{stellaris,tiva}.Platform and maybe also see
      * xdctools:ti.catalog.arm.cortexm4.tiva.ce.Boot */
 
-    Board_initGeneral();
     Board_initGPIO();
 #ifndef NO_UART
     Board_initUART();
