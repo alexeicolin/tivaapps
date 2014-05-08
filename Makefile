@@ -18,6 +18,12 @@ APPS = \
 
 HEADERS = \
 	Board.h \
+	EK_TM4C123GXL.h \
+	time.h \
+	delay.h \
+	event_logger.h \
+	num_format.h \
+	uart_iface.h \
 
 # Can't make all apps since using target-specific variables
 all: app_hello.out
