@@ -25,6 +25,7 @@
 
 #include "event_logger.h"
 #include "uart_iface.h"
+#include "delay.h"
 
 /* Application entry function declaration */
 Int app(Int argc, Char* argv[]);
@@ -51,13 +52,6 @@ Void onException(ti_sysbios_family_arm_m3_Hwi_ExcContext *excp)
 {
     System_printf("Exception context = 0x%x\n", excp);
     LoggerIdle_flush();
-}
-
-Void shortDelay()
-{
-    Int i;
-    while (i < 10000)
-        i++;
 }
 
 Int main(Int argc, Char* argv[])

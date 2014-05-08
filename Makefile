@@ -4,6 +4,7 @@ MAIN_OBJS = \
 	num_format.o \
 	event_logger.o \
 	syscalls.o \
+	delay.o \
 	main.o \
 
 APPS = \
