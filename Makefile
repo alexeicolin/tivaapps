@@ -34,6 +34,8 @@ app_button.out : wakeup_button.o
 app_hello.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x2
 app_hello.out : wakeup_button.o
 app_busy.out : CFLAGS += -DNO_UART
+app_systick.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x2
+app_systick.out : wakeup_button.o
 
 ifndef BIOS_INSTALLATION_DIR
 $(error Environment variable not defined: BIOS_INSTALLATION_DIR)
