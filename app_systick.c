@@ -60,6 +60,16 @@ Void idleFunc()
     __asm__(" wfi");
 }
 
+
+/* This is an example suggesting that the behavior of the SysTick
+ * timer while in deep sleep is not as expected. Its counting rate
+ * seems to slow down while asleep, despite being supposedly clocked
+ * by a the Precision Internal Oscillator (PI_DIV4) which is unaffected
+ * by the clock changes due to sleep states. The slow down in counting
+ * rate is expected when using the system clock as the clock source, but not
+ * when using PI_DIV4. The general-purpose timers, which can only be clocked by
+ * the system clock do experience the slowdown, as expected.
+ */
 Int app(Int argc, Char* argv[])
 {
     Hwi_Params hwiParams;
