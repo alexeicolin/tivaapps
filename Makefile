@@ -15,6 +15,7 @@ APPS = \
 	app_pwm.out \
 	app_timer.out \
 	app_clock.out \
+	app_busy.out \
 
 HEADERS = \
 	Board.h \
@@ -33,6 +34,7 @@ app_button.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x3
 app_button.out : wakeup_button.o
 app_hello.out : CFLAGS += -DBUTTON_HANDLER_MASK=0x2
 app_hello.out : wakeup_button.o
+app_busy.out : CFLAGS += -DNO_UART
 
 ifndef BIOS_INSTALLATION_DIR
 $(error Environment variable not defined: BIOS_INSTALLATION_DIR)
