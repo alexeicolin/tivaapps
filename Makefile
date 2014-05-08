@@ -20,7 +20,6 @@ APPS = \
 HEADERS = \
 	Board.h \
 	EK_TM4C123GXL.h \
-	time.h \
 	delay.h \
 	event_logger.h \
 	num_format.h \
