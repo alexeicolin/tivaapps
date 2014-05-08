@@ -70,8 +70,8 @@ Int app(Int argc, Char* argv[])
 
     val = R_DSLPCLKCFG & ~(M_DSDIVORIDE | M_DSOSCSRC | M_PIOSCPD);
     val |= V_DSDIVORIDE_DIV_1 | V_PIOSCPD_POWERON;
-    /* val |= V_DSOSCSRC_PIOSC; */
-    val |= V_DSOSCSRC_LFIOSC;
+    val |= V_DSOSCSRC_PIOSC;
+    /* val |= V_DSOSCSRC_LFIOSC; */
     R_DSLPCLKCFG = val;
     R_SYSCTL |= V_SLEEPDEEP;
 
